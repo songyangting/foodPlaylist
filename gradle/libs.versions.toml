@@ -1,0 +1,46 @@
+###
+# All versions and libraries used in our application should be define in this file.
+#
+# For keeping things organized, we must respect the following convention:
+# 1. Use the camelCase naming convention and ensure no dots or dashes in between
+# 2. Sort all lines alphabetically (Android Studio: Edit -> Sort Lines)
+# 3. Prefer inline library declaration whenever possible (avoid adding version entries with single usage)
+###
+
+[versions]
+androidxCompose = "1.4.3"
+androidxComposeCompiler = "1.4.4"
+androidxComposeFoundation = "1.4.3"
+bentoAssets = "1.70.0"
+bentoCompose = "2.26.0"
+junit = "4.13.2"
+navigationCompose = "2.7.6"
+navigationRuntimeKtx = "2.7.6"
+appcompat = "1.6.1"
+
+[plugins]
+
+[libraries]
+androidxComposeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidxComposeCompiler" }
+androidxComposeFoundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidxComposeFoundation" }
+androidxComposeFoundationLayout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "androidxComposeFoundation" }
+androidxComposeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "androidxCompose" }
+androidxComposeRuntimeLivedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxCompose" }
+androidxComposeUi = { module = "androidx.compose.ui:ui", version.ref = "androidxCompose" }
+androidxComposeUiGraphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "androidxCompose" }
+androidxComposeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxCompose" }
+androidxComposeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxCompose" }
+androidxComposeUiText = { module = "androidx.compose.ui:ui-text", version.ref = "androidxCompose" }
+androidxComposeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose" }
+androidxComposeUiUnit = { module = "androidx.compose.ui:ui-unit", version.ref = "androidxCompose" }
+
+bentoAssets = { module = "com.deliveryhero.design-tokens-android:assets", version.ref = "bentoAssets" }
+bentoComposeComponentsCore = { module = "com.deliveryhero.pd-bento:components-core", version.ref = "bentoCompose" }
+bentoComposeFoundation = { module = "com.deliveryhero.pd-bento:foundation", version.ref = "bentoCompose" }
+junit = { module = "junit:junit", version.ref = "junit" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+[bundles]
+bentoCompose = ["bentoComposeComponentsCore", "bentoComposeFoundation", "bentoAssets"]

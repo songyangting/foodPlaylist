@@ -181,7 +181,7 @@ fun RestaurantItem(restaurantItem: RestaurantItem) {
             modifier = Modifier.fillMaxWidth(),
         ) {
             AsyncImage(
-                model = "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/M6HASPARCZHYNN4XTUYT7H6PTE.jpg&w=1440",
+                model = restaurantItem.ImageURL,
                 contentDescription = "restaurant item icon",
                 modifier = Modifier
                     .padding(start = BentoTheme.spacings.xs)

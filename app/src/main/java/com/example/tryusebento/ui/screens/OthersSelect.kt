@@ -1,6 +1,5 @@
 package com.example.tryusebento.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,22 +12,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.RangeSlider
 import androidx.compose.material.Slider
 import androidx.compose.material.SliderDefaults
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material.icons.outlined.StarHalf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,8 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.foundation.BentoTheme
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 import com.example.tryusebento.viewmodel.PreferencesViewModel
 import kotlin.math.floor
 
@@ -55,30 +53,30 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
     ) {
         Text(
             text = "What is your budget?",
-            style = BentoTheme.typography.titleMediumStrong,
+//            style = BentoTheme.typography.titleMediumStrong,
             modifier = Modifier.padding(
-                start = BentoTheme.spacings.sm,
-                top = BentoTheme.spacings.sm
+                start = Spacings().sm,
+                top = Spacings().sm
             )
         )
 
         Text(
             text = "Price of a meal before fees and taxes.",
-            modifier = Modifier.padding(start = BentoTheme.spacings.sm)
+            modifier = Modifier.padding(start = Spacings().sm)
         )
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(BentoTheme.spacings.sm)
+            .height(Spacings().sm)
         )
 
         RangeSlider(
             colors = SliderDefaults.colors(
-                thumbColor = BentoTheme.colors.interactionPrimary,
-                activeTrackColor = BentoTheme.colors.interactionPrimary,
-                activeTickColor = BentoTheme.colors.interactionPrimary
+                thumbColor = Colors().interactionPrimary,
+                activeTrackColor = Colors().interactionPrimary,
+                activeTickColor = Colors().interactionPrimary
             ),
             modifier = Modifier
-                .padding(horizontal = BentoTheme.spacings.md),
+                .padding(horizontal = Spacings().md),
             value = viewModel.budgetRange.value,
             onValueChange = {
                 newValues ->
@@ -93,8 +91,8 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             Card(
-                shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container),
-                backgroundColor = BentoTheme.colors.brandHighlight,
+                shape = RoundedCornerShape(CornerRadiuses().container),
+                backgroundColor = Colors().brandHighlight,
                 modifier = Modifier
                     .width(140.dp)
                     .wrapContentHeight()
@@ -103,23 +101,23 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
                 Column {
                     Text(
                         text = "Minimum",
-                        style = BentoTheme.typography.highlightBase,
+//                        style = BentoTheme.typography.highlightBase,
                         color = Color.DarkGray,
                         modifier = Modifier
-                            .padding(top = BentoTheme.spacings.xs, start = BentoTheme.spacings.xs)
+                            .padding(top = Spacings().xs, start = Spacings().xs)
                     )
                     Text(
                         text = "%.1f".format(viewModel.minBudget),
-                        style = BentoTheme.typography.titleLarge,
+//                        style = BentoTheme.typography.titleLarge,
                         modifier = Modifier
-                            .padding(bottom = BentoTheme.spacings.xs, start = BentoTheme.spacings.xs)
+                            .padding(bottom = Spacings().xs, start = Spacings().xs)
                     )
                 }
             }
 
             Card(
-                shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container),
-                backgroundColor = BentoTheme.colors.brandHighlight,
+                shape = RoundedCornerShape(CornerRadiuses().container),
+                backgroundColor = Colors().brandHighlight,
                 modifier = Modifier
                     .width(140.dp)
                     .wrapContentHeight()
@@ -127,40 +125,40 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
                 Column {
                     Text(
                         text = "Maximum",
-                        style = BentoTheme.typography.highlightBase,
+//                        style = BentoTheme.typography.highlightBase,
                         color = Color.DarkGray,
                         modifier = Modifier
-                            .padding(top = BentoTheme.spacings.xs, start = BentoTheme.spacings.xs)
+                            .padding(top = Spacings().xs, start = Spacings().xs)
                     )
                     Text(
                         text = "%.1f".format(viewModel.maxBudget),
-                        style = BentoTheme.typography.titleLarge,
+//                        style = BentoTheme.typography.titleLarge,
                         modifier = Modifier
-                            .padding(bottom = BentoTheme.spacings.xs, start = BentoTheme.spacings.xs)
+                            .padding(bottom = Spacings().xs, start = Spacings().xs)
                     )
                 }
             }
         }
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(BentoTheme.spacings.md)
+            .height(Spacings().md)
         )
         Text(
             text = "Restaurant rating",
-            style = BentoTheme.typography.titleMediumStrong,
+//            style = BentoTheme.typography.titleMediumStrong,
             modifier = Modifier.padding(
-                start = BentoTheme.spacings.sm,
-                top = BentoTheme.spacings.sm
+                start = Spacings().sm,
+                top = Spacings().sm
             )
         )
         Text(
             text = "Minimum rating of the restaurant you are willing to order from.",
-            modifier = Modifier.padding(start = BentoTheme.spacings.sm)
+            modifier = Modifier.padding(start = Spacings().sm)
         )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = BentoTheme.spacings.md),
+                .padding(top = Spacings().md),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -170,7 +168,7 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
             )
             Text(
                 text = restaurantRatingRounded.toString(),
-                style = BentoTheme.typography.titleLarge,
+//                style = BentoTheme.typography.titleLarge,
             )
         }
         Slider(
@@ -179,12 +177,12 @@ fun OthersSelect(viewModel: PreferencesViewModel) {
             onValueChange = {newRating -> restaurantRating = newRating},
             enabled = true,
             colors = SliderDefaults.colors(
-                thumbColor = BentoTheme.colors.interactionPrimary,
-                activeTrackColor = BentoTheme.colors.interactionPrimary,
-                activeTickColor = BentoTheme.colors.interactionPrimary
+                thumbColor = Colors().interactionPrimary,
+                activeTrackColor = Colors().interactionPrimary,
+                activeTickColor = Colors().interactionPrimary
             ),
             modifier = Modifier
-                .padding(horizontal = BentoTheme.spacings.md),
+                .padding(horizontal = Spacings().md),
         )
     }
 }
@@ -204,7 +202,7 @@ fun RestaurantRatingBar(
                     imageVector = Icons.Outlined.Star,
                     modifier = Modifier.size(starSize),
                     contentDescription = "half star",
-                    tint = BentoTheme.colors.brandPrimary
+                    tint = Colors().brandPrimary
                 )
             }
             if (restaurantRating > floor(restaurantRating)) {
@@ -212,7 +210,7 @@ fun RestaurantRatingBar(
                     imageVector = Icons.Outlined.StarHalf,
                     modifier = Modifier.size(starSize),
                     contentDescription = "half star",
-                    tint = BentoTheme.colors.brandPrimary
+                    tint = Colors().brandPrimary
                 )
             }
         }

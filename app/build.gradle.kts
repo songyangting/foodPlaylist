@@ -59,7 +59,6 @@ dependencies {
     implementation(libs.androidxComposeFoundation)
     implementation("androidx.compose.animation:animation:1.4.3")
 
-    implementation(libs.bundles.bentoCompose)
     implementation(libs.navigation.compose)
     implementation(libs.navigation.runtime.ktx)
     implementation(libs.appcompat)
@@ -73,7 +72,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // android icons
-    // implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material:1.3.0")
     implementation("androidx.compose.material:material-icons-core:1.0.0")
     implementation("androidx.compose.material:material-icons-extended:1.0.0")

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,12 +31,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.foundation.BentoTheme
-import com.deliveryhero.designtokens.android.compose.typography.Roboto
 import com.example.tryusebento.R
 import com.example.tryusebento.model.Cuisine
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 import com.example.tryusebento.viewmodel.PreferencesViewModel
 import com.example.tryusebento.viewmodel.cuisineMapper
 
@@ -60,8 +60,8 @@ fun CuisineSelect(viewModel: PreferencesViewModel) {
             Text(
                 text = "Please select only 3 cuisines",
                 modifier = Modifier.padding(
-                    start = BentoTheme.spacings.sm,
-                    top = BentoTheme.spacings.sm
+                    start = Spacings().sm,
+                    top = Spacings().sm
                 )
             )
         }
@@ -69,10 +69,10 @@ fun CuisineSelect(viewModel: PreferencesViewModel) {
             columns = GridCells.Fixed(2),
             modifier = Modifier
                 .padding(
-                    top = BentoTheme.spacings.md,
-                    bottom = BentoTheme.spacings.md,
-                    start = BentoTheme.spacings.xs,
-                    end = BentoTheme.spacings.xs
+                    top = Spacings().md,
+                    bottom = Spacings().md,
+                    start = Spacings().xs,
+                    end = Spacings().xs
                 ),
             content = {
                 items(cuisineList.size) {
@@ -109,14 +109,14 @@ private fun CuisineTile(cuisine: Cuisine, viewModel: PreferencesViewModel) {
         border = if (isSelected || viewModel.selectedCuisines.contains(cuisineMapper[cuisine.cuisineName])) {
             BorderStroke(
                 3.dp,
-                BentoTheme.colors.brandPrimary
+                Colors().brandPrimary
             )
         } else null,
-        shape = RoundedCornerShape(BentoTheme.cornerRadiuses.button),
+        shape = RoundedCornerShape(CornerRadiuses().button),
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
-            .padding(BentoTheme.spacings.xxs)
+            .padding(Spacings().xxs)
     ) {
         Box {
             Image(
@@ -130,7 +130,7 @@ private fun CuisineTile(cuisine: Cuisine, viewModel: PreferencesViewModel) {
             Text(
                 text = cuisine.cuisineName,
                 style = TextStyle(
-                    fontFamily = Roboto,
+//                    fontFamily = Roboto,
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 16.sp,
                     shadow = Shadow(
@@ -141,7 +141,7 @@ private fun CuisineTile(cuisine: Cuisine, viewModel: PreferencesViewModel) {
                 color = Color.White,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = BentoTheme.spacings.st)
+                    .padding(bottom = Spacings().st)
             )
         }
     }

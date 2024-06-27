@@ -15,7 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Menu
@@ -37,12 +41,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.components.core.Tile
-import com.deliveryhero.bento.components.core.input.SearchInputField
-import com.deliveryhero.bento.foundation.BentoTheme
-import com.deliveryhero.bento.foundation.brand.BrandConfiguration
 import com.example.tryusebento.R
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 
 //TODO
 // - get someone to export to proper png file for PANDAMART & DINE-IN
@@ -52,11 +54,9 @@ import com.example.tryusebento.R
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
-    BentoTheme(brandConfiguration = BrandConfiguration.FOODPANDA) {
-        Column {
-            AppBar()
-            TileScreen(navController)
-        }
+    Column {
+        AppBar()
+        TileScreen(navController)
     }
 }
 
@@ -66,7 +66,7 @@ fun AppBar() {
 
     Column(
         modifier = Modifier
-            .background(color = BentoTheme.colors.brandPrimary)
+            .background(color = Colors().brandPrimary)
     ) {
 
         Row(
@@ -95,12 +95,12 @@ fun AppBar() {
                 Text(
                     text = "Home",
                     color = Color.White,
-                    style = BentoTheme.typography.titleSmall
+//                    style = BentoTheme.typography.titleSmall
                 )
                 Text(
                     text = "Kingroad 4",
                     color = Color.White,
-                    style = BentoTheme.typography.bodyBase
+//                    style = BentoTheme.typography.bodyBase
                 )
             }
             Row(
@@ -130,10 +130,10 @@ fun AppBar() {
 
             }
         }
-        SearchInputField(
-            text = searchInput,
-            label = "Search for your local favorites",
-            onTextChange = { searchInput = it },
+        TextField(
+            value = searchInput,
+            label = {Text("Search for your local favorites")},
+            onValueChange = { searchInput = it },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
@@ -152,9 +152,9 @@ fun TileScreen(navController: NavHostController) {
         Row(
             modifier = Modifier
                 .padding(
-                    top = BentoTheme.spacings.sm,
-                    start = BentoTheme.spacings.sm,
-                    end = BentoTheme.spacings.sm
+                    top = Spacings().sm,
+                    start = Spacings().sm,
+                    end = Spacings().sm
                 )
         ) {
             Column(
@@ -208,7 +208,7 @@ fun TileScreen(navController: NavHostController) {
         }
         Row(
             modifier = Modifier
-                .padding(horizontal=BentoTheme.spacings.sm)
+                .padding(horizontal=Spacings().sm)
         ) {
             MenuTile(
                 navController = navController,
@@ -222,6 +222,7 @@ fun TileScreen(navController: NavHostController) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun MenuTile(
     navController: NavHostController? = null,
@@ -230,24 +231,24 @@ private fun MenuTile(
     height: Dp,
     imageResource: Int
 ) {
-    Tile(
+    Card(
         onClick = {
           if (titleTxt == "Delivery playlist") {
               navController!!.navigate("playlist_library")
           }
         },
         modifier = Modifier
-            .padding(BentoTheme.spacings.xxs)
+            .padding(Spacings().xxs)
             .background(
                 color = Color.White,
-                shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container)
+                shape = RoundedCornerShape(CornerRadiuses().container)
             )
             .border(
                 width = Dp.Hairline,
                 color = Color.LightGray,
-                shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container)
+                shape = RoundedCornerShape(CornerRadiuses().container)
             )
-            .padding(BentoTheme.spacings.xxxs)
+            .padding(Spacings().xxxs)
             .height(height)
     ) {
         Box(
@@ -273,7 +274,7 @@ private fun MenuTile(
                         color = Color(0xFF333333)
                     ),
                     modifier = Modifier
-                        .padding(top = BentoTheme.spacings.xs, start = BentoTheme.spacings.sm)
+                        .padding(top = Spacings().xs, start = Spacings().sm)
                 )
                 Text(
                     text = subtitleTxt,
@@ -283,9 +284,9 @@ private fun MenuTile(
                         fontWeight = FontWeight(400),
                         color = Color(0xFF707070)
                     ),
-                    color = BentoTheme.colors.illuSecondaryDark,
+                    color = Colors().illuSecondaryDark,
                     modifier = Modifier
-                        .padding(top = BentoTheme.spacings.xxs, start = BentoTheme.spacings.sm)
+                        .padding(top = Spacings().xxs, start = Spacings().sm)
                 )
             }
         }

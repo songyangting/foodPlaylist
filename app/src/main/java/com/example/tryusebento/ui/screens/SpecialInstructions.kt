@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,11 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.deliveryhero.bento.components.core.Checkbox
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.components.core.input.InputFieldLabelType
-import com.deliveryhero.bento.components.core.input.MultilineInputField
-import com.deliveryhero.bento.foundation.BentoTheme
+//import com.deliveryhero.bento.components.core.Checkbox
+//import com.deliveryhero.bento.components.core.input.InputFieldLabelType
+//import com.deliveryhero.bento.components.core.input.MultilineInputField
+import com.example.tryusebento.ui.theme.Spacings
 import com.example.tryusebento.viewmodel.PreferencesViewModel
 
 @Composable
@@ -42,10 +42,10 @@ fun SpecialInstructions(viewModel: PreferencesViewModel) {
     ) {
         Text(
             text = "Dietary Restrictions",
-            style = BentoTheme.typography.titleMediumStrong,
-            modifier = Modifier.padding(start = BentoTheme.spacings.sm, top = BentoTheme.spacings.sm)
+//            style = BentoTheme.typography.titleMediumStrong,
+            modifier = Modifier.padding(start = Spacings().sm, top = Spacings().sm)
         )
-        Spacer(modifier = Modifier.height(BentoTheme.spacings.xs))
+        Spacer(modifier = Modifier.height(Spacings().xs))
 
         RestrictionCheckbox("None", viewModel = viewModel)
         RestrictionCheckbox("Halal", viewModel = viewModel, isRestrictionEnabled)
@@ -56,21 +56,21 @@ fun SpecialInstructions(viewModel: PreferencesViewModel) {
 
         Text(
             text = "Other special instructions",
-            style = BentoTheme.typography.titleMediumStrong,
-            modifier = Modifier.padding(start = BentoTheme.spacings.sm, top = BentoTheme.spacings.sm)
+//            style = BentoTheme.typography.titleMediumStrong,
+            modifier = Modifier.padding(start = Spacings().sm, top = Spacings().sm)
         )
 
-        MultilineInputField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-                .padding(BentoTheme.spacings.sm),
-            text = specialInstructionsInput,
-            onTextChange = {  newValue -> specialInstructionsInput = newValue },
-            label = "eg. no mayo",
-            labelType = InputFieldLabelType.Stable,
-            placeholder = "eg. no mayo"
-        )
+//        MultilineInputField(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(180.dp)
+//                .padding(BentoTheme.spacings.sm),
+//            text = specialInstructionsInput,
+//            onTextChange = {  newValue -> specialInstructionsInput = newValue },
+//            label = "eg. no mayo",
+//            labelType = InputFieldLabelType.Stable,
+//            placeholder = "eg. no mayo"
+//        )
     }
 }
 
@@ -85,37 +85,37 @@ fun RestrictionCheckbox(restrictionName: String, viewModel: PreferencesViewModel
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = BentoTheme.spacings.sm)
+            .padding(horizontal = Spacings().sm)
     ) {
         Text(
             text = restrictionName,
             modifier = Modifier
-                .padding(start = BentoTheme.spacings.xs),
+                .padding(start = Spacings().xs),
             textDecoration = if (!isEnabled) TextDecoration.LineThrough else null
         )
-        Checkbox(
-            checked = restrictionSelected,
-            enabled = isEnabled,
-            onCheckedChange =
-            {
-                restrictionSelected = !restrictionSelected
-                if (restrictionSelected) {
-                    viewModel.addRestriction(restrictionName)
-                    if (restrictionName == "None") {
-                        viewModel.isRestrictionEnabled.value = false
-                    }
-
-                } else {
-                    viewModel.removeRestriction(restrictionName)
-                    if (restrictionName == "None") {
-                        viewModel.isRestrictionEnabled.value = true
-                    }
-                }
-            },
-            modifier = Modifier
-                .padding(end = BentoTheme.spacings.xs),
-            contentPadding = PaddingValues(0.dp)
-        )
+//        Checkbox(
+//            checked = restrictionSelected,
+//            enabled = isEnabled,
+//            onCheckedChange =
+//            {
+//                restrictionSelected = !restrictionSelected
+//                if (restrictionSelected) {
+//                    viewModel.addRestriction(restrictionName)
+//                    if (restrictionName == "None") {
+//                        viewModel.isRestrictionEnabled.value = false
+//                    }
+//
+//                } else {
+//                    viewModel.removeRestriction(restrictionName)
+//                    if (restrictionName == "None") {
+//                        viewModel.isRestrictionEnabled.value = true
+//                    }
+//                }
+//            },
+//            modifier = Modifier
+//                .padding(end = Spacings().xs),
+//            contentPadding = PaddingValues(0.dp)
+//        )
     }
 }
 

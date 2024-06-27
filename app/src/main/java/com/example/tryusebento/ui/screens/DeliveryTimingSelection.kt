@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,11 +33,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.deliveryhero.bento.components.core.Modal
-import com.deliveryhero.bento.components.core.ModalCloseButton
-import com.deliveryhero.bento.components.core.ModalContent
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.foundation.BentoTheme
+import androidx.compose.ui.window.Dialog
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 import com.example.tryusebento.viewmodel.PreferencesViewModel
 import com.example.tryusebento.viewmodel.deliveryDayMap
 import io.woong.wheelpicker.compose.ValuePicker
@@ -52,12 +52,12 @@ fun DeliveryTiming(viewModel: PreferencesViewModel) {
     val deliveryIndex = viewModel.timeValues.indexOf(selectedDeliveryTime.value)
 
     Card(
-        shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container),
+        shape = RoundedCornerShape(CornerRadiuses().container),
         backgroundColor = Color.White,
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .padding(BentoTheme.spacings.sm),
+            .padding(Spacings().sm),
         border = BorderStroke(width = Dp.Hairline, color = Color.DarkGray)
     ) {
         Row(
@@ -67,16 +67,16 @@ fun DeliveryTiming(viewModel: PreferencesViewModel) {
         ) {
             Text(
                 text = "Delivery Timing",
-                style = BentoTheme.typography.titleMediumStrong,
+//                style = BentoTheme.typography.titleMediumStrong,
                 modifier = Modifier
-                    .padding(start = BentoTheme.spacings.sm)
+                    .padding(start = Spacings().sm)
             )
 
             Column(
                 horizontalAlignment = Alignment.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = BentoTheme.spacings.sm)
+                    .padding(end = Spacings().sm)
             ) {
                 Text(
                     text = selectedDeliveryTime.value
@@ -84,7 +84,7 @@ fun DeliveryTiming(viewModel: PreferencesViewModel) {
 
                 Text(
                     text = "Change",
-                    color = BentoTheme.colors.brandDark,
+                    color = Colors().brandDark,
                     modifier = Modifier
                         .clickable {
                             showTimeSelection = true
@@ -105,14 +105,14 @@ fun DeliveryTiming(viewModel: PreferencesViewModel) {
 
     Text(
         text = "Days to deliver",
-        style = BentoTheme.typography.titleMediumStrong,
-        modifier = Modifier.padding(start = BentoTheme.spacings.sm)
+//        style = BentoTheme.typography.titleMediumStrong,
+        modifier = Modifier.padding(start = Spacings().sm)
     )
-    Spacer(modifier = Modifier.height(BentoTheme.spacings.sm))
+    Spacer(modifier = Modifier.height(Spacings().sm))
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = BentoTheme.spacings.sm),
+            .padding(horizontal = Spacings().sm),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         DeliveryDaySelectionButton(viewModel,1)
@@ -132,36 +132,11 @@ fun TimeSelectionModal(viewModel: PreferencesViewModel, index: Int = 0, onDismis
     val timePickerState = rememberValuePickerState<String>(
         initialIndex = index
     )
+    
+    Dialog(onDismissRequest = { onDismissRequest() }) {
 
-    Modal {
-        ModalContent(
-            title = {
-                Text("Choose a delivery timing")
-            },
-            closeButton = {
-                ModalCloseButton(onClick = onDismissRequest )
-            },
-            buttons = {
-                Button(
-                    onClick = {
-                        viewModel.updateSelectedDeliveryTiming(timeValues[timePickerState.currentIndex])
-                        onDismissRequest()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    shape = RoundedCornerShape(BentoTheme.cornerRadiuses.button),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BentoTheme.colors.brandPrimary,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = "Select Timing",
-                        color = Color.White
-                    )
-                }
-            }
-        ) {
+        Column {
+            Text("Choose a delivery timing")
             ValuePicker(
                 values = viewModel.timeValues,
                 modifier = Modifier
@@ -191,8 +166,87 @@ fun TimeSelectionModal(viewModel: PreferencesViewModel, index: Int = 0, onDismis
                     BasicText(text = value, modifier = Modifier.align(Alignment.Center))
                 }
             }
+            Button(
+                onClick = {
+                    viewModel.updateSelectedDeliveryTiming(timeValues[timePickerState.currentIndex])
+                    onDismissRequest()
+                },
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(CornerRadiuses().button),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Colors().brandPrimary,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(
+                    text = "Select Timing",
+                    color = Color.White
+                )
+            }
         }
     }
+
+//    Modal {
+//        ModalContent(
+//            title = {
+//                Text("Choose a delivery timing")
+//            },
+//            closeButton = {
+//                ModalCloseButton(onClick = onDismissRequest )
+//            },
+//            buttons = {
+//                Button(
+//                    onClick = {
+//                        viewModel.updateSelectedDeliveryTiming(timeValues[timePickerState.currentIndex])
+//                        onDismissRequest()
+//                    },
+//                    modifier = Modifier
+//                        .fillMaxWidth(),
+//                    shape = RoundedCornerShape(CornerRadiuses().button),
+//                    colors = ButtonDefaults.buttonColors(
+//                        backgroundColor = Colors().brandPrimary,
+//                        contentColor = Color.White
+//                    )
+//                ) {
+//                    Text(
+//                        text = "Select Timing",
+//                        color = Color.White
+//                    )
+//                }
+//            }
+//        ) {
+//            ValuePicker(
+//                values = viewModel.timeValues,
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .height(120.dp),
+//                state = timePickerState,
+//                isCyclic = false,
+//                decorationBox = {
+//                        innerPicker ->
+//                    Box(
+//                        modifier = Modifier
+//                            .align(Alignment.Center)
+//                            .padding(horizontal = 8.dp)
+//                            .fillMaxWidth()
+//                            .height(56.dp)
+//                            .clip(RoundedCornerShape(8.dp))
+//                            .background(Color.LightGray)
+//                    )
+//                    innerPicker()
+//                }
+//            ) {
+//                    value ->
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                ) {
+//                    BasicText(text = value, modifier = Modifier.align(Alignment.Center))
+//                }
+//            }
+//        }
+//    }
 }
 
 @Composable
@@ -214,13 +268,13 @@ fun DeliveryDaySelectionButton(viewModel: PreferencesViewModel, dayInt: Int) {
         border = if (!dayIsSelected) {
             BorderStroke(width = Dp.Hairline, color = Color.DarkGray)
         } else {
-            BorderStroke(width = 2.dp, color = BentoTheme.colors.brandPrimary)
+            BorderStroke(width = 2.dp, color = Colors().brandPrimary)
         }
     ) {
         Text(
             text = deliveryDayMap[dayInt]!!,
             modifier = Modifier
-                .padding(BentoTheme.spacings.xs),
+                .padding(Spacings().xs),
             textAlign = TextAlign.Center
         )
     }

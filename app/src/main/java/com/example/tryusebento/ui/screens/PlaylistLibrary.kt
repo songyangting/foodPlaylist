@@ -20,6 +20,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PauseCircle
 import androidx.compose.material.icons.rounded.PlayCircle
@@ -29,79 +30,73 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.foundation.BentoTheme
-import com.deliveryhero.bento.foundation.brand.BrandConfiguration
 import com.example.tryusebento.model.Playlist
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 
 @Composable
 fun PlaylistLibrary(
     playlistItems: List<Playlist>,
     navController: NavHostController
 ) {
-    BentoTheme(brandConfiguration = BrandConfiguration.FOODPANDA) {
-        Box(
-            modifier = Modifier.fillMaxSize()
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(
+                Text(
+                    text = "My delivery playlists",
+//                    style = BentoTheme.typography.titleLarge,
+                    modifier = Modifier
+                        .padding(Spacings().sm)
+                )
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = "search icon",
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(end = Spacings().sm)
+                )
+            }
+            if (playlistItems.isEmpty()) {
+                EmptyPlaylistView(navController)
+            } else {
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .fillMaxHeight()
                 ) {
-                    Text(
-                        text = "My delivery playlists",
-                        style = BentoTheme.typography.titleLarge,
-                        modifier = Modifier
-                            .padding(BentoTheme.spacings.sm)
-                    )
-                    Icon(
-                        imageVector = Icons.Rounded.Search,
-                        contentDescription = "search icon",
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(end = BentoTheme.spacings.sm)
-                    )
-                }
-                if (playlistItems.isEmpty()) {
-                    EmptyPlaylistView(navController)
-                } else {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                    ) {
-                        items(playlistItems) { playlistItem ->
-                            PlaylistItem(playlistItem, navController)
-                        }
+                    items(playlistItems) { playlistItem ->
+                        PlaylistItem(playlistItem, navController)
                     }
                 }
             }
-            if (playlistItems.isNotEmpty()) {
-                Box(
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                ) {
-                    CreateNewButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp),
-                        navHostController = navController
-                    )
-                }
+        }
+        if (playlistItems.isNotEmpty()) {
+            Box(
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) {
+                CreateNewButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    navHostController = navController
+                )
             }
         }
     }
@@ -114,10 +109,10 @@ fun PlaylistItem(playlist: Playlist, navController: NavHostController) {
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(
-                start = BentoTheme.spacings.sm,
-                end = BentoTheme.spacings.sm,
-                top = BentoTheme.spacings.xxs,
-                bottom = BentoTheme.spacings.xxs
+                start = Spacings().sm,
+                end = Spacings().sm,
+                top = Spacings().xxs,
+                bottom = Spacings().xxs
             )
     ) {
         Column(
@@ -136,11 +131,11 @@ fun PlaylistItem(playlist: Playlist, navController: NavHostController) {
             }
             Text(
                 text = playlist.playlistName,
-                style = BentoTheme.typography.titleSmall
+//                style = BentoTheme.typography.titleSmall
             )
             Text(
                 text = "Every ${playlist.getDeliveryDaysString()} at ${playlist.deliveryTiming}.",
-                style = BentoTheme.typography.bodySmall
+//                style = BentoTheme.typography.bodySmall
             )
         }
         IconButton(
@@ -154,7 +149,7 @@ fun PlaylistItem(playlist: Playlist, navController: NavHostController) {
                     contentDescription = "Play button",
                     modifier = Modifier
                         .size(45.dp),
-                    tint = BentoTheme.colors.brandDark
+                    tint = Colors().brandDark
                 )
 
             } else {
@@ -163,7 +158,7 @@ fun PlaylistItem(playlist: Playlist, navController: NavHostController) {
                     contentDescription = "Pause button",
                     modifier = Modifier
                         .size(45.dp),
-                    tint = BentoTheme.colors.brandDark
+                    tint = Colors().brandDark
                 )
             }
         }
@@ -176,9 +171,9 @@ fun CreateNewButton(modifier: Modifier = Modifier, navHostController: NavHostCon
         onClick = {
             navHostController.navigate("preference_indication")
         },
-        shape = RoundedCornerShape(BentoTheme.cornerRadiuses.button),
+        shape = RoundedCornerShape(CornerRadiuses().button),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = BentoTheme.colors.brandDark,
+            backgroundColor = Colors().brandDark,
             contentColor = Color.White
         ),
         modifier = modifier
@@ -189,7 +184,7 @@ fun CreateNewButton(modifier: Modifier = Modifier, navHostController: NavHostCon
         )
         Text(
             text = "Create new playlist",
-            style = BentoTheme.typography.highlightBase,
+//            style = BentoTheme.typography.highlightBase,
             color = Color.White
         )
     }
@@ -204,9 +199,9 @@ fun EmptyPlaylistView(navController: NavHostController) {
     ) {
         Text(
             text = "No playlists. Create a new playlist to get started!",
-            style = BentoTheme.typography.highlightBase
+//            style = BentoTheme.typography.highlightBase
         )
-        Spacer(modifier = Modifier.height(BentoTheme.spacings.sm))
+        Spacer(modifier = Modifier.height(Spacings().sm))
         CreateNewButton(
             navHostController = navController,
             modifier = Modifier

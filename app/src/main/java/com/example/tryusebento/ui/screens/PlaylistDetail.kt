@@ -1,6 +1,5 @@
 package com.example.tryusebento.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,13 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PauseCircle
 import androidx.compose.material.icons.rounded.PlayCircle
@@ -30,44 +29,41 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.deliveryhero.bento.components.core.Text
-import com.deliveryhero.bento.foundation.BentoTheme
-import com.deliveryhero.bento.foundation.brand.BrandConfiguration
 import com.example.tryusebento.model.Playlist
 import com.example.tryusebento.model.RestaurantItem
+import com.example.tryusebento.ui.theme.Colors
+import com.example.tryusebento.ui.theme.CornerRadiuses
+import com.example.tryusebento.ui.theme.Spacings
 import com.example.tryusebento.viewmodel.DeliveryPlaylistViewModel
 
 @Composable
 fun PlaylistDetailPage(playlistId: Int, viewModel: DeliveryPlaylistViewModel) {
-    BentoTheme(brandConfiguration = BrandConfiguration.FOODPANDA) {
-        val restaurantItems = viewModel.getAllRestaurantItems()
-        val playlist = viewModel.getPlaylistById(playlistId)
-        Column(
+    val restaurantItems = viewModel.getAllRestaurantItems()
+    val playlist = viewModel.getPlaylistById(playlistId)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        remember{playlist}?.let { PlaylistHeader(it) }
+        Text(
+            text = "Upcoming Orders",
             modifier = Modifier
-                .fillMaxSize()
-        ) {
-            remember{playlist}?.let { PlaylistHeader(it) }
-            Text(
-                text = "Upcoming Orders",
-                modifier = Modifier
-                    .padding(start = BentoTheme.spacings.sm, bottom = BentoTheme.spacings.sm),
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                )
+                .padding(start = Spacings().sm, bottom = Spacings().sm),
+            style = TextStyle(
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
             )
-            LazyColumn{
-                restaurantItems.value?.let {
-                    items(it.size) {
-                        item ->
-                        RestaurantItem(restaurantItems.value!![item])
-                    }
+        )
+        LazyColumn{
+            restaurantItems.value?.let {
+                items(it.size) {
+                    item ->
+                    RestaurantItem(restaurantItems.value!![item])
                 }
             }
         }
@@ -87,13 +83,13 @@ fun PlaylistHeader(playlist: Playlist) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = BentoTheme.spacings.sm, start = BentoTheme.spacings.sm, end = BentoTheme.spacings.sm),
+                .padding(top = Spacings().sm, start = Spacings().sm, end = Spacings().sm),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
                 text = playlist.playlistName,
-                style = BentoTheme.typography.titleLarge,
+//                style = BentoTheme.typography.titleLarge,
             )
             IconButton(
                 onClick = {
@@ -106,14 +102,14 @@ fun PlaylistHeader(playlist: Playlist) {
                     Icon(
                         imageVector = Icons.Rounded.PauseCircle,
                         contentDescription = "Pause Button",
-                        tint = BentoTheme.colors.brandDark,
+                        tint = Colors().brandDark,
                         modifier = Modifier.size(55.dp)
                     )
                 } else {
                     Icon(
                         imageVector = Icons.Rounded.PlayCircle,
                         contentDescription = "Play Button",
-                        tint = BentoTheme.colors.brandDark,
+                        tint = Colors().brandDark,
                         modifier = Modifier.size(55.dp)
                     )
 
@@ -123,15 +119,15 @@ fun PlaylistHeader(playlist: Playlist) {
         Text(
             text = "Delivers every ${playlist.getDeliveryDaysString()} at ${playlist.deliveryTiming}",
             modifier = Modifier.padding(
-                start = BentoTheme.spacings.sm
+                start = Spacings().sm
             )
         )
 
-        Spacer(modifier = Modifier.height(BentoTheme.spacings.sm))
+        Spacer(modifier = Modifier.height(Spacings().sm))
         Text(
             text = "Next delivery",
             modifier = Modifier
-                .padding(horizontal = BentoTheme.spacings.sm),
+                .padding(horizontal = Spacings().sm),
             style = TextStyle(
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
@@ -140,15 +136,15 @@ fun PlaylistHeader(playlist: Playlist) {
         if (isPlaying.value) {
             Text(
                 text = "Next Thu",
-                modifier = Modifier.padding(start = BentoTheme.spacings.sm)
+                modifier = Modifier.padding(start = Spacings().sm)
             )
         } else {
             Text(
                 text = "Start playlist to receive orders!",
-                modifier = Modifier.padding(start = BentoTheme.spacings.sm)
+                modifier = Modifier.padding(start = Spacings().sm)
             )
         }
-        Spacer(modifier = Modifier.height(BentoTheme.spacings.sm))
+        Spacer(modifier = Modifier.height(Spacings().sm))
     }
 }
 
@@ -160,13 +156,13 @@ fun RestaurantItem(restaurantItem: RestaurantItem) {
     val anchors = mapOf(0f to 0, 100f to 1)
 
     Card(
-        shape = RoundedCornerShape(BentoTheme.cornerRadiuses.container),
-        backgroundColor = BentoTheme.colors.brandHighlight,
+        shape = RoundedCornerShape(CornerRadiuses().container),
+        backgroundColor = Colors().brandHighlight,
         modifier = Modifier
             .padding(
-                start = BentoTheme.spacings.st,
-                end = BentoTheme.spacings.st,
-                bottom = BentoTheme.spacings.xs
+                start = Spacings().st,
+                end = Spacings().st,
+                bottom = Spacings().xs
             )
             .fillMaxWidth()
             .height(100.dp)
@@ -184,7 +180,7 @@ fun RestaurantItem(restaurantItem: RestaurantItem) {
                 model = restaurantItem.ImageURL,
                 contentDescription = "restaurant item icon",
                 modifier = Modifier
-                    .padding(start = BentoTheme.spacings.xs)
+                    .padding(start = Spacings().xs)
                     .size(50.dp)
                     .align(Alignment.CenterVertically),
                 contentScale = ContentScale.Crop,
@@ -192,24 +188,24 @@ fun RestaurantItem(restaurantItem: RestaurantItem) {
             )
             Column(
                 modifier = Modifier
-                    .padding(vertical = BentoTheme.spacings.xs, horizontal = BentoTheme.spacings.sm)
+                    .padding(vertical = Spacings().xs, horizontal = Spacings().sm)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = BentoTheme.spacings.xs),
+                        .padding(top = Spacings().xs),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = restaurantItem.Name,
-                        style = BentoTheme.typography.titleMedium
+//                        style = BentoTheme.typography.titleMedium
                     )
                     Text(
                         text = "S$ ${restaurantItem.Price}",
-                        style = BentoTheme.typography.titleMediumStrong
+//                        style = BentoTheme.typography.titleMediumStrong
                     )
                 }
-                Spacer(modifier = Modifier.height(BentoTheme.spacings.st))
+                Spacer(modifier = Modifier.height(Spacings().st))
                 Text(text = restaurantItem.Description)
             }
         }

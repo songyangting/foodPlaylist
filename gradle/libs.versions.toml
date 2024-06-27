@@ -11,8 +11,6 @@
 androidxCompose = "1.4.3"
 androidxComposeCompiler = "1.4.4"
 androidxComposeFoundation = "1.4.3"
-bentoAssets = "1.70.0"
-bentoCompose = "2.26.0"
 junit = "4.13.2"
 navigationCompose = "2.7.6"
 navigationRuntimeKtx = "2.7.6"
@@ -34,13 +32,7 @@ androidxComposeUiText = { module = "androidx.compose.ui:ui-text", version.ref = 
 androidxComposeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose" }
 androidxComposeUiUnit = { module = "androidx.compose.ui:ui-unit", version.ref = "androidxCompose" }
 
-bentoAssets = { module = "com.deliveryhero.design-tokens-android:assets", version.ref = "bentoAssets" }
-bentoComposeComponentsCore = { module = "com.deliveryhero.pd-bento:components-core", version.ref = "bentoCompose" }
-bentoComposeFoundation = { module = "com.deliveryhero.pd-bento:foundation", version.ref = "bentoCompose" }
 junit = { module = "junit:junit", version.ref = "junit" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-
-[bundles]
-bentoCompose = ["bentoComposeComponentsCore", "bentoComposeFoundation", "bentoAssets"]

@@ -74,7 +74,7 @@ dependencies {
     // android icons
     implementation("androidx.compose.material:material:1.3.0")
     implementation("androidx.compose.material:material-icons-core:1.0.0")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0")
+    implementation("androidx.compose.material:material-icons-extended:1.6.8")
 
     //wheelpicker
     implementation("io.woong.wheelpicker:wheelpicker:0.2.0")
